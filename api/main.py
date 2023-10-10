@@ -3,8 +3,9 @@ from flask_bootstrap import Bootstrap5
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired, URL
-import csv
+import sys
 from pymongo.mongo_client import MongoClient
+from pymongo.errors import OperationFailure
 
 # Definition of MongoDB Database
 uri = "mongodb+srv://jcawesome:y3uXzn9EiF1wqR7o@jc-dsp-cluster.3va90q8.mongodb.net/?retryWrites=true&w=majority"
@@ -51,6 +52,17 @@ def add_word():
              }
         ]
         print(add_word_json)
+        try:
+            result = my_collection.insert_many(add_word_json)
+        except OperationFailure:
+            print(
+                "An authentication error was received. Are you sure your database user is authorized to perform write operations?")
+            sys.exit(1)
+        else:
+            inserted_count = len(result.inserted_ids)
+            print("I inserted %x documents." % inserted_count)
+
+            print("\n")
         return redirect(url_for('dictionary'))
     print('Invalid')
     return render_template('add.html', form=form)
