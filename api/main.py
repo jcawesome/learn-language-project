@@ -1,14 +1,16 @@
+import os
+import sys
+
 from flask import Flask, render_template, redirect, url_for
 from flask_bootstrap import Bootstrap5
 from flask_wtf import FlaskForm
+from pymongo.errors import OperationFailure
+from pymongo.mongo_client import MongoClient
 from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired, URL
-import sys
-from pymongo.mongo_client import MongoClient
-from pymongo.errors import OperationFailure
 
 # Definition of MongoDB Database
-uri = "mongodb+srv://jcawesome:y3uXzn9EiF1wqR7o@jc-dsp-cluster.3va90q8.mongodb.net/?retryWrites=true&w=majority"
+uri = os.environ.get('MONGODB_CONNECTION')
 # Create a new client and connect to the server
 client = MongoClient(uri)
 
@@ -61,7 +63,6 @@ def add_word():
         else:
             inserted_count = len(result.inserted_ids)
             print("I inserted %x documents." % inserted_count)
-
             print("\n")
         return redirect(url_for('dictionary'))
     print('Invalid')
@@ -84,14 +85,9 @@ def dictionary():
         column_values.append([document[column] for column in columns])
 
     # Print the list of column values
-    for row in column_values:
-        print(row)
+    # for row in column_values:
+    #     print(row)
 
-    # with open('cafe-data.csv', newline='', encoding='utf-8') as csv_file:
-    #     csv_data = csv.reader(csv_file, delimiter=',')
-    #     list_of_rows = []
-    #     for row in csv_data:
-    #         list_of_rows.append(row)
     return render_template('dictionary.html', words=column_values)
 
 
