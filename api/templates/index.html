@@ -4,12 +4,31 @@
 {% block content %}
 <div class="jumbotron text-center">
     <div class="container">
-  <h1 class="display-4">New Word Dictionary 💻</h1>
-  <p class="lead">Want to learn a new language?</p>
-  <hr class="my-4">
-  <p>You've found the right place! Checkout my collection of new words I learned this week.</p>
-  <a class="btn btn-warning btn-lg" href="{{ url_for('dictionary') }}" role="button">Show Me!</a>
-</div>
+        <h1 class="display-4">📖 New Word Dictionary 🌏</h1>
+        <p class="lead">Want to learn a new language?</p>
+        <div class="row justify-content-md-center">
+            <div class="col-12 col-lg-4 d-flex flex-column justify-content-between mb-5">
+                <hr class="my-1">
+                <div class="mt-1 mb-3">
+                    Have you learned a new word? Add it here!
+                </div>
+                <div class="col-12">
+                    <a class="btn btn-warning" href="{{ url_for('add_word') }}" role="button">Add Word</a>
+                </div>
+
+            </div>
+            <div class="col-12 col-lg-4 d-flex flex-column justify-content-between mb-5">
+                <hr class="my-1">
+                <div class="mt-1 mb-3">
+                    You've found the right place! Checkout my collection of new words I learned this week.
+                </div>
+                <div class="col-12">
+                    <a class="btn btn-warning" href="{{ url_for('dictionary') }}" role="button">Show Me!</a>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+
 
 {% endblock %}

@@ -22,7 +22,8 @@ my_collection = db["LANG_COLLECTION"]
 
 # Definition of Flask WebApp front-end
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+api_secret_key = os.environ.get('API_SECRET_KEY')
+app.config['SECRET_KEY'] = api_secret_key
 Bootstrap5(app)
 
 
